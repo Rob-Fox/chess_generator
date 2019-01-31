@@ -87,6 +87,17 @@ def create_set(name, quantity):
     # print(name)
     print(datetime.datetime.now())
     pic_list = create_pieces(quantity)
+    txt_name = name.split('.')[0]
+    text_file = open(txt_name + '.txt', 'w+')
+    # text_file.write(str(pic_list))
+    for i in range(len(pic_list)):
+        if i > 0:
+            text_file.write(',' + str(pic_list[i].split('.')[0]))
+        else:
+            text_file.write(str(pic_list[i].split('.')[0]))
+        # text_file.write(str(pic_list[i].split('.')[0]) + ', ')
+    text_file.close()
+
     root = math.sqrt(quantity)
 
     background_dimension = int(root * 32)
@@ -108,5 +119,4 @@ def create_set(name, quantity):
     picture.save(name)
     print(datetime.datetime.now())
 
-create_set('test1.png', 100)
-
+create_set('test5.png', 10000)
