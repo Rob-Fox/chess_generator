@@ -5,13 +5,13 @@ import datetime
 import numpy as np
 from PIL import Image
 
-class ChessPiece:
-    def __init__(self, color, piece, *args, **kwargs):
-        self.color = color
-        self.piece = piece
+# class ChessPiece:
+#     def __init__(self, color, piece, *args, **kwargs):
+#         self.color = color
+#         self.piece = piece
 
-white_rook = ChessPiece(
-    color='white', piece='rook')
+# white_rook = ChessPiece(
+#     color='white', piece='rook')
 
 # print(white_rook.color, white_rook.piece)
 
@@ -20,7 +20,7 @@ piece_weight = [1.0,1.0,1.0,1.0,1.0,1.0,1.0]
 
 def weighted_random(piece_weight):
     #multiply the difference between 1 and the piece_weight selected by random, if it exceeds a certain number re-roll
-    #each time a piece is selected it should be decreased by .1 down to a min of .1 and all other pieces should be increased by .1 up to a max of 1.0
+    #each time a piece is selected it should be decreased by .2 and all other pieces should be increased by .1
     pick = random.randint(0,6)
     if piece_weight[pick] < 1:
         change = 1-piece_weight[pick]
@@ -90,19 +90,13 @@ def create_set(name, quantity):
     root = math.sqrt(quantity)
 
     background_dimension = int(root * 32)
-    print(len(pic_list))
     picture = Image.new('RGB',(background_dimension, background_dimension))
     offset = [0, 0]
-
     for i in range(0, len(pic_list), int(root)):
         images = [Image.open(j) for j in pic_list[i:i+int(root)]]
-        # print(offset)
-        x = 1
+
         for item in images:
-            # print(offset)
             # print(datetime.datetime.now())
-            # print(x)
-            x += 1
             if offset[0] < background_dimension:
                 picture.paste(item, (offset[0], offset[1]))
                 offset[0] += 32
