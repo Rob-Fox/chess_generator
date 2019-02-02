@@ -84,29 +84,33 @@ def create_pieces(number):
 
 
 def create_set(name, quantity):
-    # print(name)
     print(datetime.datetime.now())
     pic_list = create_pieces(quantity)
     txt_name = name.split('.')[0]
     text_file = open(txt_name + '.txt', 'w+')
-    # text_file.write(str(pic_list))
+    text_file.write(str(datetime.datetime.now()) + ',   ')
     for i in range(len(pic_list)):
         if i > 0:
             text_file.write(',' + str(pic_list[i].split('.')[0]))
         else:
             text_file.write(str(pic_list[i].split('.')[0]))
-        # text_file.write(str(pic_list[i].split('.')[0]) + ', ')
     text_file.close()
 
     root = math.sqrt(quantity)
 
     background_dimension = int(root * 32)
+    print(background_dimension)
     picture = Image.new('RGB',(background_dimension, background_dimension))
     offset = [0, 0]
+    x = 1
     for i in range(0, len(pic_list), int(root)):
+        # print(offset)
         images = [Image.open(j) for j in pic_list[i:i+int(root)]]
 
         for item in images:
+            print(offset)
+            # print(x)
+            x += 1
             # print(datetime.datetime.now())
             if offset[0] < background_dimension:
                 picture.paste(item, (offset[0], offset[1]))
@@ -118,5 +122,9 @@ def create_set(name, quantity):
     
     picture.save(name)
     print(datetime.datetime.now())
+    text_file = open(txt_name + '.txt', 'a')
+    text_file.write(',   ' + str(datetime.datetime.now()))
+    text_file.close
 
-create_set('test5.png', 10000)
+create_set('16.png', 16)
+
